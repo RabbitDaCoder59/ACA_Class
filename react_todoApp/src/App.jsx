@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import { useState } from "react";
+import "./index.css";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import Form from "./components/Form";
+import TodoList from "./components/TodoList";
 function App() {
-  const [count, setCount] = useState(0)
+  const generateRandomId = () => Math.random().toString(36).substring(2, 15);
+  const [todos, setTodos] = useState([]);
+  const handleToggleComplete = (id) => {
+    setTodos((prevTodo) =>
+      prevTodo.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+  const handleDelete = (id) => {
+    setTodos((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
+  };
+  const handleAdd = (value) => {
+    console.log(value);
 
+    setTodos((prevTodo) => [
+      ...prevTodo,
+      { id: generateRandomId(), title: value, completed: false },
+    ]);
+  };
+  const completedTasks = todos.filter((todo) => todo.completed).length;
+  const totalTasks = todos.length;
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="bg-[#0D0D0D] w-full h-full min-h-screen text-white px-4">
+        <Header />
+        <Hero totalTasks={totalTasks} completedTasks={completedTasks} />
+        <Form handleAdd={handleAdd} />
+        <TodoList
+          handleDelete={handleDelete}
+          handleToggleComplete={handleToggleComplete}
+          todos={todos}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
