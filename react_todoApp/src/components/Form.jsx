@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { IoAdd } from "react-icons/io5";
+import PropTypes from "prop-types";
 const Form = ({ handleAdd }) => {
   const [inputValue, setInputValue] = useState("");
   const submitForm = (e) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
     handleAdd(inputValue);
-
     setInputValue("");
   };
 
@@ -38,4 +38,7 @@ const Form = ({ handleAdd }) => {
   );
 };
 
+Form.PropTypes = {
+  handleAdd: PropTypes.func.isRequired,
+};
 export default Form;

@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
+import EmptyTodo from "./components/EmptyTodo";
+
 function App() {
   const generateRandomId = () => Math.random().toString(36).substring(2, 15);
   const [todos, setTodos] = useState([]);
@@ -22,9 +24,11 @@ function App() {
 
     setTodos((prevTodo) => [
       ...prevTodo,
-      { id: generateRandomId(), title: value, completed: false },
+      { id: generateRandomId(), content: value, completed: false },
     ]);
   };
+  console.log(todos);
+
   const completedTasks = todos.filter((todo) => todo.completed).length;
   const totalTasks = todos.length;
   return (
@@ -33,11 +37,15 @@ function App() {
         <Header />
         <Hero totalTasks={totalTasks} completedTasks={completedTasks} />
         <Form handleAdd={handleAdd} />
-        <TodoList
-          handleDelete={handleDelete}
-          handleToggleComplete={handleToggleComplete}
-          todos={todos}
-        />
+        {totalTasks === 0 ? (
+          <EmptyTodo />
+        ) : (
+          <TodoList
+            handleDelete={handleDelete}
+            handleToggleComplete={handleToggleComplete}
+            todos={todos}
+          />
+        )}
       </div>
     </>
   );

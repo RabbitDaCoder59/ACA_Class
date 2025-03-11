@@ -1,5 +1,5 @@
 import { FaTrash } from "react-icons/fa";
-
+import PropTypes from "prop-types";
 const TodoList = ({ handleDelete, handleToggleComplete, todos }) => {
   return (
     <div className="w-full max-w-md mx-auto mt-6 space-y-4">
@@ -28,7 +28,7 @@ const TodoList = ({ handleDelete, handleToggleComplete, todos }) => {
                 todo.completed ? "line-through text-stone-400" : "text-white"
               }`}
             >
-              {todo.title}
+              {todo.content}
             </span>
           </div>
           {/* Action Buttons */}
@@ -44,6 +44,18 @@ const TodoList = ({ handleDelete, handleToggleComplete, todos }) => {
       ))}
     </div>
   );
+};
+
+TodoList.PropTypes = {
+  handleDelete: PropTypes.func.isRequired,
+  handleToggleComplete: PropTypes.func.isRequired,
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
+    })
+  ).isRequired,
 };
 
 export default TodoList;

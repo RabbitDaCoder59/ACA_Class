@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 const Hero = ({ completedTasks, totalTasks }) => {
   return (
     <div className="flex justify-center py-[1em]">
@@ -18,4 +18,8 @@ const Hero = ({ completedTasks, totalTasks }) => {
   );
 };
 
+Hero.PropTypes = {
+  completedTasks: PropTypes.number.isRequired,
+  totalTasks: PropTypes.number.isRequired,
+};
 export default Hero;
