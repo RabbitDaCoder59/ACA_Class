@@ -6,6 +6,7 @@ const TodoList = ({ handleDelete, handleToggleComplete, todos }) => {
       {todos.map((todo) => (
         <div
           key={todo.id}
+          id={todo.id}
           className="flex items-center justify-between border border-stone-300 p-4 rounded-lg bg-black text-white"
         >
           <div className="flex items-center space-x-3">

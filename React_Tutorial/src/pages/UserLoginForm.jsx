@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { FaFacebookF, FaTwitter, FaGoogle } from "react-icons/fa";
-
-const UserRegistrationForm = () => {
+import { Link } from "react-router";
+const UserLoginForm = () => {
+  const [emailFocused, setEmailFocused] = useState(false);
+  const [passwordFocused, setPasswordFocused] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
   });
@@ -13,7 +14,6 @@ const UserRegistrationForm = () => {
     console.log(formData);
 
     setFormData({
-      name: "",
       email: "",
       password: "",
     });
@@ -21,33 +21,28 @@ const UserRegistrationForm = () => {
 
   return (
     <div className="flex justify-center items-center py-10">
-      <div className="bg-white shadow-xl w-full max-w-[400px] h-full min-h-[500px] rounded-md px-4 py-3">
-        <h1 className="text-center text-2xl font-bold">Registration</h1>
-        <form onSubmit={(e) => handlesubmit(e)} className="py-1">
-          {/* Name */}
-          <div className="relative w-full mb-5">
-            <label>Name</label>
-            <input
-              type="text"
-              className="w-full p-3 border-2 border-blue-300 bg-transparent text-black text-base rounded-md outline-none focus:border-blue-400"
-              value={formData.name}
-              placeholder="Enter your name"
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  name: e.target.value,
-                })
-              }
-            />
-          </div>
+      <div className="bg-white shadow-xl w-full max-w-[400px] h-full min-h-[500px] rounded-md px-4 py-6">
+        <h1 className="text-center text-2xl font-bold">Login</h1>
+        <form onSubmit={(e) => handlesubmit(e)} className="py-8">
           {/* Email */}
-          <div className="relative w-full mb-5">
-            <label>Email</label>
+          <div className="relative w-full mb-6">
+            <label
+              className={`absolute left-3 transition-all duration-300 bg-white px-2 
+              ${
+                emailFocused || formData.email
+                  ? "-top-2 text-xs text-blue-400"
+                  : "top-1/2 text-base text-gray-700 transform -translate-y-1/2"
+              }
+              `}
+            >
+              Email
+            </label>
             <input
               type="email"
               className="w-full p-3 border-2 border-blue-300 bg-transparent text-black text-base rounded-md outline-none focus:border-blue-400"
+              onFocus={() => setEmailFocused(true)}
+              onBlur={() => setEmailFocused(false)}
               value={formData.email}
-              placeholder="Enter your email address"
               onChange={(e) =>
                 setFormData({
                   ...formData,
@@ -58,13 +53,24 @@ const UserRegistrationForm = () => {
           </div>
 
           {/* Password */}
-          <div className="relative w-full mb-5">
-            <label>Password</label>
+          <div className="relative w-full mb-6">
+            <label
+              className={`absolute left-3 transition-all duration-300 bg-white px-2 
+              ${
+                passwordFocused || formData.password
+                  ? "-top-2 text-xs text-blue-400"
+                  : "top-1/2 text-base text-gray-700 transform -translate-y-1/2"
+              }
+              `}
+            >
+              Password
+            </label>
             <input
               type="password"
               className="w-full p-3 border-2 border-blue-300 bg-transparent text-black text-base rounded-md outline-none focus:border-blue-400"
+              onFocus={() => setPasswordFocused(true)}
+              onBlur={() => setPasswordFocused(false)}
               value={formData.password}
-              placeholder="Enter your password"
               onChange={(e) =>
                 setFormData({
                   ...formData,
@@ -79,9 +85,9 @@ const UserRegistrationForm = () => {
           </button>
         </form>
 
-        {/* Sign Up Section */}
+        {/* Sign In Section */}
         <div className="text-center mt-6">
-          <span className="block text-gray-600">or Sign up Using</span>
+          <span className="block text-gray-600">or Sign in Using</span>
           <div className="flex justify-center gap-4 mt-3">
             <button className="w-10 h-10 rounded-full hover:text-blue-600 bg-gray-200 flex items-center justify-center">
               <FaFacebookF size={26} />
@@ -97,14 +103,14 @@ const UserRegistrationForm = () => {
 
         {/* Create Account Section */}
         <div className="text-center mt-6">
-          <span className="text-gray-600">Already have an account?</span>
-          <a href="#" className="text-blue-500 ml-2">
-            Sign In
-          </a>
+          <span className="text-gray-600">Don't have an account?</span>
+          <Link to="#" className="text-blue-500 ml-2">
+            Sign Up
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default UserRegistrationForm;
+export default UserLoginForm;
