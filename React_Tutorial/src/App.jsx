@@ -7,6 +7,7 @@ import UserLoginForm from "./pages/UserLoginForm";
 import UserRegistrationForm from "./pages/UserRegistrationForm";
 import { Route, Routes } from "react-router";
 import Header from "./components/Header";
+import BlogRoutes from "./layout/BlogRoutes";
 
 function App() {
   const [isDark, setIsDark] = useState(false);
@@ -29,6 +30,7 @@ function App() {
           <Route path="/user-list" element={<UserList />} />
           <Route path="/user-login" element={<UserLoginForm />} />
           <Route path="/user-registration" element={<UserRegistrationForm />} />
+          <Route path="/blog/*" element={<BlogRoutes />} />
         </Routes>
       </div>
 

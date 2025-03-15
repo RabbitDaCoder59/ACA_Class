@@ -38,6 +38,12 @@ const Header = () => {
               User Registration
             </NavLink>
           </li>
+          <li>
+            <NavLink className="" to="/blog">
+              {" "}
+              Blog
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>
